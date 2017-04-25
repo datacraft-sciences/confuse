@@ -1,7 +1,7 @@
 (ns confuse.binary-class-metrics-test
   (:require
    [confuse.binary-class-metrics :refer :all]
-   [clojure.test :refer [is testing]]
+   [clojure.test :refer [is testing deftest]]
    [clojure.spec :as s]
    [clojure.spec.test :as stest]
    [clojure.core.matrix :as m]
@@ -20,7 +20,7 @@
 ;;define the positive class
 (def pclass 1)
 
-(testing "actual numbers"
+(deftest actual-numbers 
   (is (= 20 (true-positives fixt pclass)))
   (is (= 180 (false-positives fixt pclass)))
   (is (= 10 (false-negatives fixt pclass)))
@@ -31,32 +31,32 @@
   [exp actual]
   (> 0.05  (Math/abs (- exp actual))))
 
-(testing "true positive rate"
+(deftest true-positive-rate-test
   (is (approx 0.66 (sensitivity fixt pclass)))
   (is (approx 0.66 (true-positive-rate fixt pclass)))
   (is (approx 0.66 (recall fixt pclass))))
 
-(testing "true negative rate"
+(deftest true-negative-rate-test
   (is (approx 0.91 (specificity fixt pclass)))
   (is (approx 0.91 (true-negative-rate fixt pclass))))
 
-(testing "false positive rate"
+(deftest false-positive-rate-test
   (is (approx 0.09 (false-positive-rate fixt pclass))))
 
-(testing "false negative rate"
+(deftest false-negative-rate-test
   (is (approx 0.33 (false-negative-rate fixt pclass))))
 
-(testing "precision"
+(deftest precision-test
   (is (approx 0.10 (precision fixt pclass))))
 
-(testing "f1 score"
+(deftest f1-score-test
   (is (approx 0.17 (f1-score fixt pclass))))
 
-(testing "accuracy"
+(deftest accuracy-test
   (is (approx 0.90 (accuracy fixt)))
   (is (approx 0.10 (misclassification-rate fixt))))
 
-(testing "confusion matrix"
+(deftest confusion-matrix-test
   (let [cm (confusion-matrix fixt)]
     (is (= 1820 (cm [0 0])))
     (is (= 10 (cm [0 1])))
