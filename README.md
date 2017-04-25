@@ -1,6 +1,6 @@
-# confuse1
+# confuse
 
-A Clojure library designed to ... well, that part is up to you.
+Utilities for binary and multi-class metrics for machine learning.
 
 ## Usage
 
@@ -8,7 +8,7 @@ FIXME
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Datacraft Sciences
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
