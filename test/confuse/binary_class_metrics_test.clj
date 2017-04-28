@@ -7,6 +7,8 @@
    [clojure.core.matrix :as m]
    [clojure.core.matrix.impl.pprint :refer [pm]]
    [clojure.core.matrix.dataset :as cd]
+            ;crit
+   [criterium.core :refer [bench]]
    [clojure.spec.gen :as gen]))
 
 ;;taken from https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Worked_example
@@ -17,10 +19,11 @@
         (repeat 180 [1 0])
         (repeat 10 [0 1]))))
 
+
 ;;define the positive class
 (def pclass 1)
 
-(deftest actual-numbers 
+(deftest actual-numbers
   (is (= 20 (true-positives fixt pclass)))
   (is (= 180 (false-positives fixt pclass)))
   (is (= 10 (false-negatives fixt pclass)))
