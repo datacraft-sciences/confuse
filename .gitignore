@@ -4,3 +4,4 @@
 .lein-repl-history
 /.project
 /.classpath
+/bin
