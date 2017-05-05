@@ -3,3 +3,4 @@
 .nrepl-port
 .lein-repl-history
 /.project
+/.classpath
