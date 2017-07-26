@@ -7,8 +7,7 @@
    [clojure.core.matrix :as m]
    [clojure.core.matrix.impl.pprint :refer [pm]]
    [clojure.core.matrix.dataset :as cd]
-            ;crit
-   ;[criterium.core :refer [bench]]
+   [confuse.util :refer [approx]]
    [clojure.spec.gen :as gen]))
 
 ;;taken from https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Worked_example
@@ -30,11 +29,6 @@
   (is (= 180 (false-positives actuals pred pclass)))
   (is (= 10 (false-negatives actuals pred pclass)))
   (is (= 1820 (true-negatives actuals pred pclass))))
-
-(defn approx
-  "returns true is expected and actual are within 0.05 of each other"
-  [exp actual]
-  (> 0.05  (Math/abs (- exp actual))))
 
 (deftest true-positive-rate-test
   (is (approx 0.66 (sensitivity actuals pred pclass)))
