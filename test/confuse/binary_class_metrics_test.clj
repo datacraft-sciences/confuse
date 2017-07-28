@@ -7,8 +7,6 @@
    [clojure.core.matrix :as m]
    [clojure.core.matrix.impl.pprint :refer [pm]]
    [clojure.core.matrix.dataset :as cd]
-            ;crit
-   ;[criterium.core :refer [bench]]
    [clojure.spec.gen :as gen]))
 
 ;;taken from https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Worked_example

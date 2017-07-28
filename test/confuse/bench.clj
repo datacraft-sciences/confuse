@@ -9,6 +9,9 @@
    [citius.core :as c]
    [clojure.spec.gen :as gen]))
 
+
+;;This ns has utility code for benchmarking different methods for metric computation
+
 ;;fixtures
 
 ;;~2000 instances
