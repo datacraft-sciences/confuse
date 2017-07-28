@@ -6,6 +6,8 @@
   :dependencies [[org.clojure/clojure "1.9.0-alpha15"]
                  [com.rpl/specter "1.0.1"]
                  [net.mikera/core.matrix "0.60.2"] ]
+  :test-selectors {:default (complement :benchmarking)
+                   :all (constantly true)}
   :profiles  {:dev  {:dependencies  [[org.clojure/test.check "0.9.0"]]}
               :test {:dependencies  [[citius "0.2.4"]]}
               }
