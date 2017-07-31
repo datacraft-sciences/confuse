@@ -9,6 +9,9 @@
    [citius.core :as c]
    [clojure.spec.gen :as gen]))
 
+
+;;This ns has utility code for benchmarking different methods for metric computation
+
 ;;fixtures
 
 ;;~2000 instances
@@ -130,7 +133,7 @@
          {:chart-title "Comparison of counting methods"
           :chart-filename (format "confmat-counting-%s.png" c/clojure-version-str)}))
 
-(deftest test-counts
+(deftest ^:benchmarking test-counts
   (c/compare-perf
    "2k instances" (true-positive-rate bfix 1)
    (true-positive-rate-red bfix 1)
