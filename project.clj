@@ -11,6 +11,7 @@
           :doc-files []}
   :test-selectors {:default (complement :benchmarking)
                    :all (constantly true)}
+  :deploy-repositories  [["releases" :clojars]]
   :profiles  {:dev  {:dependencies  [[org.clojure/test.check "0.9.0"]]}
               :test {:dependencies  [[citius "0.2.4"]]}
               }

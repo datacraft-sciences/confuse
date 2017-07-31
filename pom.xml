@@ -16,7 +16,7 @@
   <scm>
     <connection>scm:git:git://github.com/datacraft-sciences/confuse.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/datacraft-sciences/confuse.git</developerConnection>
-    <tag>69c2bb43ff7eb1b77649fb01fc07c18421eafcab
+    <tag>8a0a5017982aa04bb1608c105fd5cc14d5f775fe
 </tag>
     <url>https://github.com/datacraft-sciences/confuse</url>
   </scm>
