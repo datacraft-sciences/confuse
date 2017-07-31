@@ -9,6 +9,8 @@
   :plugins [[lein-codox "0.10.3"]]
   :codox {:output-path "docs"
           :doc-files []}
+  :test-selectors {:default (complement :benchmarking)
+                   :all (constantly true)}
   :profiles  {:dev  {:dependencies  [[org.clojure/test.check "0.9.0"]]}
               :test {:dependencies  [[citius "0.2.4"]]}
               }
