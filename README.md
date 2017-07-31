@@ -2,6 +2,12 @@
 
 Binary and Multi-class evaluation metrics for classification tasks in machine learning.
 
+## Installation
+
+Add the following to your :dependencies:
+
+[![Clojars Project](https://img.shields.io/clojars/v/datacraft-sciences/confuse.svg)](https://clojars.org/datacraft-sciences/confuse)
+
 ## Supported metrics
 
 ### Counts 
