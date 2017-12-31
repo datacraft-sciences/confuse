@@ -3,7 +3,7 @@
   <groupId>datacraft-sciences</groupId>
   <artifactId>confuse</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.1</version>
   <name>confuse</name>
   <description>Utilities for Data Science</description>
   <url>https://github.com/datacraft-sciences/confuse</url>
@@ -16,7 +16,7 @@
   <scm>
     <connection>scm:git:git://github.com/datacraft-sciences/confuse.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/datacraft-sciences/confuse.git</developerConnection>
-    <tag>a90e561287aabadb8a27e730c5ab6ddae6604826
+    <tag>2a8341fc1de9b631ad932498f50ee5e43eb38543
 </tag>
     <url>https://github.com/datacraft-sciences/confuse</url>
   </scm>
