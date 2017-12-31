@@ -1,22 +1,13 @@
 (ns confuse.binary-class-metrics
-  (:require [clojure.spec :as s]
-            [clojure.spec.test :as stest]
-            [clojure.core.matrix :as m]
+  (:require [clojure.core.matrix :as m]
             [clojure.core.matrix.impl.pprint :refer [pm]]
-            [clojure.core.matrix.dataset :as cd]
-            [com.rpl.specter :as sp]
-            [clojure.spec.gen :as gen]))
+            [clojure.core.matrix.dataset :as cd]))
 
 (defn- accuracy-helper
   [pred-ac-seq filtfn]
   (let [denom (count pred-ac-seq)
         pred-ac-same (-> (filter filtfn pred-ac-seq) count double)]
     (/ pred-ac-same denom)))
-
-(comment
-  (defn counts
-    [pred-ac-seq filtfn]
-    (-> (filter filtfn pred-ac-seq) count)))
 
 (defn counts
   ([actual predicted filt1]
@@ -167,5 +158,3 @@
         order (partition nc nc  (for [i classes j classes] [j i]))]
     (cd/dataset (into ["-"] classes)
                 (mapv #(into [%2] (mapv (fn [i] (get conf-mat i 0)) %1)) order classes))))
-
-
