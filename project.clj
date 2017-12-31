@@ -1,4 +1,4 @@
-(defproject datacraft-sciences/confuse "0.1.1-SNAPSHOT"
+(defproject datacraft-sciences/confuse "0.1.1"
   :description "Utilities for Data Science"
   :url "https://github.com/datacraft-sciences/confuse"
   :license {:name "Eclipse Public License"
