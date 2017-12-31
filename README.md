@@ -8,6 +8,10 @@ Add the following to your :dependencies:
 
 [![Clojars Project](https://img.shields.io/clojars/v/datacraft-sciences/confuse.svg)](https://clojars.org/datacraft-sciences/confuse)
 
+## Documentation
+
+* [API Documentation link](https://datacraft-sciences.github.io/confuse/)
+
 ## Supported metrics
 
 ### Counts 
