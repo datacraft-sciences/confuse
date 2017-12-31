@@ -3,7 +3,7 @@
   <groupId>datacraft-sciences</groupId>
   <artifactId>confuse</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.0</version>
+  <version>0.1.1-SNAPSHOT</version>
   <name>confuse</name>
   <description>Utilities for Data Science</description>
   <url>https://github.com/datacraft-sciences/confuse</url>
@@ -16,7 +16,7 @@
   <scm>
     <connection>scm:git:git://github.com/datacraft-sciences/confuse.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/datacraft-sciences/confuse.git</developerConnection>
-    <tag>425529fef2665d8e19396b2ae2cd9078315f7058
+    <tag>a90e561287aabadb8a27e730c5ab6ddae6604826
 </tag>
     <url>https://github.com/datacraft-sciences/confuse</url>
   </scm>
@@ -66,7 +66,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.9.0-alpha15</version>
+      <version>1.9.0</version>
     </dependency>
     <dependency>
       <groupId>com.rpl</groupId>
@@ -76,7 +76,7 @@
     <dependency>
       <groupId>net.mikera</groupId>
       <artifactId>core.matrix</artifactId>
-      <version>0.60.2</version>
+      <version>0.61.0</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
@@ -88,6 +88,12 @@
       <groupId>citius</groupId>
       <artifactId>citius</artifactId>
       <version>0.2.4</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.clojure</groupId>
+          <artifactId>clojure</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>test</scope>
     </dependency>
   </dependencies>

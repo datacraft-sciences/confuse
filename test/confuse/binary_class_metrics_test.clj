@@ -2,13 +2,10 @@
   (:require
    [confuse.binary-class-metrics :refer :all]
    [clojure.test :refer [is testing deftest]]
-   [clojure.spec :as s]
-   [clojure.spec.test :as stest]
    [clojure.core.matrix :as m]
    [clojure.core.matrix.impl.pprint :refer [pm]]
    [clojure.core.matrix.dataset :as cd]
-   [confuse.util :refer [approx]]
-   [clojure.spec.gen :as gen]))
+   [confuse.util :refer [approx]]))
 
 ;;taken from https://en.wikipedia.org/wiki/Sensitivity_and_specificity#Worked_example
 (def fixt

@@ -1,12 +1,9 @@
 (ns confuse.multi-class-metrics
-  (:require [clojure.spec :as s]
-            [clojure.spec.test :as stest]
-            [clojure.core.matrix :as m]
+  (:require [clojure.core.matrix :as m]
             [clojure.core.matrix.stats :refer [mean]]
             [clojure.core.matrix.dataset :as cd]
             [confuse.binary-class-metrics :as b :refer [counts]]
-            [clojure.test :refer [is deftest]]
-            [clojure.spec.gen :as gen]))
+            [clojure.test :refer [is deftest]]))
 
 ;http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.8244&rep=rep1&type=pdf
 (defn micro-avg-fmeasure
@@ -22,14 +19,21 @@
          rho (/ tpisum (+ tpisum fnisum))]
      (double (/ (* 2 pi rho) (+ pi rho))))))
 
+(defn- div0-safe-map
+  "catches divided by zero error for some classes and filters them"
+  [fnx classes]
+  (remove nil? (mapv #(try (fnx %)
+                           (catch java.lang.ArithmeticException e
+                             nil)) classes)))
+
 (defn macro-avg-fmeasure
   "returns the macro averaged fmeasure, defined as mean of F-measure for each class.
   See Section 4.2 in this paper: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.8244&rep=rep1&type=pdf
 "
   ([actual predicted] (micro-avg-fmeasure actual predicted (set (into actual predicted))))
   ([actual predicted classes]
-   (let [fsum (mapv (partial b/f1-score
-                             actual predicted) classes)]
+   (let [fsum (div0-safe-map (partial b/f1-score
+                                      actual predicted) classes)]
      (mean fsum))))
 
 (defn micro-avg-precision
@@ -45,13 +49,15 @@
   "returns the macro averaged precision, defined as the mean of precision for each class"
   ([actual predicted ] (macro-avg-precision actual predicted (set (into actual predicted))))
   ([actual predicted classes]
-  (mean (mapv (partial b/precision actual predicted) classes))))
+   (let [fsum (div0-safe-map (partial b/precision actual predicted) classes)]
+     (mean fsum))))
 
 (defn macro-avg-recall
   "returns the macro averaged recall, defined as the mean of recall for each class"
   ([actual predicted ] (macro-avg-recall actual predicted (set (into actual predicted))))
   ([actual predicted classes]
-  (mean (mapv (partial b/recall actual predicted) classes))))
+   (let [fsum (div0-safe-map (partial b/recall actual predicted) classes)]
+     (mean fsum))))
 
 (defn micro-avg-recall
   "returns the micro averaged recall, defined as the sum of true positives for all classes,
