@@ -3,7 +3,7 @@
   <groupId>datacraft-sciences</groupId>
   <artifactId>confuse</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.1</version>
+  <version>0.1.2-SNAPSHOT</version>
   <name>confuse</name>
   <description>Utilities for Data Science</description>
   <url>https://github.com/datacraft-sciences/confuse</url>
@@ -14,11 +14,10 @@
     </license>
   </licenses>
   <scm>
+    <url>https://github.com/datacraft-sciences/confuse</url>
     <connection>scm:git:git://github.com/datacraft-sciences/confuse.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/datacraft-sciences/confuse.git</developerConnection>
-    <tag>2a8341fc1de9b631ad932498f50ee5e43eb38543
-</tag>
-    <url>https://github.com/datacraft-sciences/confuse</url>
+    <tag>7174e82ac58e0189895ea252a867ce4fa66c891a</tag>
   </scm>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -50,7 +49,7 @@
     </repository>
     <repository>
       <id>clojars</id>
-      <url>https://clojars.org/repo/</url>
+      <url>https://repo.clojars.org/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -90,8 +89,8 @@
       <version>0.2.4</version>
       <exclusions>
         <exclusion>
-          <groupId>org.clojure</groupId>
           <artifactId>clojure</artifactId>
+          <groupId>org.clojure</groupId>
         </exclusion>
       </exclusions>
       <scope>test</scope>

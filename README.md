@@ -68,6 +68,24 @@ Add the following to your :dependencies:
 ;;against that key 
 (confusion-matrix spam-actual spam-pred)
 ;;{[:spam :spam] 2, [:spam :notspam] 1, [:notspam :spam] 1, [:notspam :notspam] 1}
+
+;;The API for multi-class metrics requires an additional argument:
+;;the set of all possible classes.
+(micro-avg-fmeasure [1 2 3 1 2] [1 2 1 2 3] #{1 2 3})
+;;0.4
+(macro-avg-fmeasure [1 2 3 1 2] [1 2 1 2 3] #{1 2 3})
+;;0.5
+
+(micro-avg-precision [1 2 3 1 2] [1 2 1 2 3] #{1 2 3})
+;;0.4
+(macro-avg-precision [1 2 3 1 2] [1 2 1 2 3] #{1 2 3})
+;;0.33
+
+(micro-avg-recall [1 2 3 1 2] [1 2 1 2 3] #{1 2 3})
+;;0.4
+(macro-avg-recall [1 2 3 1 2] [1 2 1 2 3] #{1 2 3})
+;;0.33
+
 ```
 ## License
 
