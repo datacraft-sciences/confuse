@@ -134,6 +134,18 @@
   [actual predicted]
   (- 1 (accuracy actual predicted)))
 
+(defn mcc
+  "returns the Matthews Correlation Coefficient"
+  [actual predicted positive-class]
+  (let [
+        tp  (true-positives actual predicted positive-class)
+        tn  (true-negatives actual predicted positive-class)
+        fp  (false-positives actual predicted positive-class)
+        fn_ (false-negatives actual predicted positive-class)]
+
+    (/  (- (* tp tn) (* fp fn_))
+        (Math/sqrt (* (+ tp fp) (+ tp fn_) (+ tn fp ) (+ tn fn_))))))
+
 (defn- conf-mat
   [freq classes]
   (let [mapkeys (vec (for [i classes j classes] [i j]))]
