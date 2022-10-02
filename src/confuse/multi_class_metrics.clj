@@ -81,8 +81,8 @@
          (b/confusion-matrix-str)
          (m/select :all :rest))
 
-        t (fn [k] (sum (m/get-row cm k)))
-        p (fn [k] (sum (m/get-column cm k)))
+        true-k (fn [k] (sum (m/get-row cm k)))
+        predicted-k (fn [k] (sum (m/get-column cm k)))
 
         sum-mult-fns (fn [fn-1 fn-2] (sum (map
                                            #(* (fn-1 %) (fn-2 %))
@@ -91,13 +91,13 @@
 
 
         
-        c (apply + (m/diagonal cm))
-        s (m/esum cm)]
+        correct-samples (apply + (m/diagonal cm))
+        total-samples (m/esum cm)]
     (/
      (-
-      (* c s)
-      (sum-mult-fns p t))
-     (Math/sqrt (* (- (* s s)
-                      (sum-mult-fns p p))
-                   (- (* s s)
-                      (sum-mult-fns t t)))))))
+      (* correct-samples total-samples)
+      (sum-mult-fns predicted-k true-k))
+     (Math/sqrt (* (- (* total-samples total-samples)
+                      (sum-mult-fns predicted-k predicted-k))
+                   (- (* total-samples total-samples)
+                      (sum-mult-fns true-k true-k)))))))
