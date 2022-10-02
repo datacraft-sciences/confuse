@@ -70,37 +70,34 @@
 
 
 
-(defn- t [cm k]
-  (sum (m/get-row cm k)))
-
-(defn- p [cm k]
-  (sum (m/get-column cm k)))
-
-(defn- sum-mult-fns [fn-1 fn-2 cm]
-  (sum
-         (map
-          #(*  (fn-1 cm %) (fn-2 cm %))
-          (range (first
-                  (m/shape cm))))))
-
-
 (defn multiclass-mcc
   "returns multiclass Matthews correlation coefficient.
   https://en.wikipedia.org/wiki/Phi_coefficient"
   [actual predicted]
-  (let [cm
+  (let [
+        cm
         (->
          (b/confusion-matrix actual predicted)
          (b/confusion-matrix-str)
          (m/select :all :rest))
 
+        t (fn [k] (sum (m/get-row cm k)))
+        p (fn [k] (sum (m/get-column cm k)))
+
+        sum-mult-fns (fn [fn-1 fn-2] (sum (map
+                                           #(* (fn-1 %) (fn-2 %))
+                                           (range (first
+                                                   (m/shape cm))))))
+
+
+        
         c (apply + (m/diagonal cm))
         s (m/esum cm)]
     (/
      (-
       (* c s)
-      (sum-mult-fns p t cm))
+      (sum-mult-fns p t))
      (Math/sqrt (* (- (* s s)
-                      (sum-mult-fns p p cm))
+                      (sum-mult-fns p p))
                    (- (* s s)
-                      (sum-mult-fns t t cm)))))))
+                      (sum-mult-fns t t)))))))
