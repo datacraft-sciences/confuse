@@ -7,6 +7,7 @@
    [clojure.core.matrix :as m]
    [clojure.core.matrix.stats :as ms]
    [clojure.core.matrix.dataset :as cd]
+   [clojure.core.matrix.stats :refer [mean sum]]
    ))
 
 (def fixt
@@ -55,3 +56,32 @@
 (deftest recall
   (is (approx 0.70 (micro-avg-recall (ac fixt) (pred fixt) #{:cat :dog :rabbit})))
   (is (approx 0.65 (macro-avg-recall (ac fixt) (pred fixt) #{:cat :dog :rabbit}))))
+
+
+(deftest multi-mcc
+  ;;  verified against sklearn results
+
+  (is (= 0.2711630722733202
+         (multiclass-mcc
+          [0 1 2 3 4 5 3 4 2 3]
+          [0 1 2 3 2 2 2 3 4 2])))
+
+  (is (= 0.21335229882506598
+         (multiclass-mcc
+          [0 1 2 3 4 2 3 4 2 3]
+          [0 1 2 3 2 4 2 3 4 2])))
+
+  (is (= -0.3651483716701107
+         (multiclass-mcc [0 1 2 3]
+                         [2 2 3 1])))
+
+  (is (= -0.42600643361512924
+         (multiclass-mcc [0 1 2 3 3 2 1]
+                         [2 2 3 1 2 3 3])))
+
+  (is (approx 0.478
+              (multiclass-mcc
+               [1 1 1 1 1 1 1 1 0 0 0 0]
+               [0 0 1 1 1 1 1 1 0 0 0 1])))
+
+  (is (=  0.0 (multiclass-mcc [:a :b :c] [:a :a :a]))))

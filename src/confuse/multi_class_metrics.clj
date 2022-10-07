@@ -1,6 +1,6 @@
 (ns confuse.multi-class-metrics
   (:require [clojure.core.matrix :as m]
-            [clojure.core.matrix.stats :refer [mean]]
+            [clojure.core.matrix.stats :refer [mean sum]]
             [clojure.core.matrix.dataset :as cd]
             [confuse.binary-class-metrics :as b :refer [counts]]
             [clojure.test :refer [is deftest]]))
@@ -67,3 +67,42 @@
   (let [tpisum (apply + (mapv (partial b/true-positives actual predicted) classes))
         fnisum (apply + (mapv (partial b/false-negatives actual predicted) classes))]
     (double (/ tpisum (+ tpisum fnisum))))))
+
+
+
+(defn multiclass-mcc
+  "returns multiclass Matthews correlation coefficient.
+  https://en.wikipedia.org/wiki/Phi_coefficient"
+  [actual predicted]
+  (let [
+        cm
+        (->
+         (b/confusion-matrix actual predicted)
+         (b/confusion-matrix-str)
+         (m/select :all :rest))
+
+        true-k (fn [k] (sum (m/get-row cm k)))
+        predicted-k (fn [k] (sum (m/get-column cm k)))
+
+        sum-mult-fns (fn [fn-1 fn-2] (sum (map
+                                          #(* (fn-1 %) (fn-2 %))
+                                          (range (first
+                                                  (m/shape cm))))))
+
+        correct-samples (apply + (m/diagonal cm))
+        total-samples (m/esum cm)
+
+        nominator
+        (-
+         (* correct-samples total-samples)
+         (sum-mult-fns predicted-k true-k))
+
+        denominator
+        (Math/sqrt (* (- (* total-samples total-samples)
+                         (sum-mult-fns predicted-k predicted-k))
+                      (- (* total-samples total-samples)
+                         (sum-mult-fns true-k true-k))))]
+
+    (if (= 0.0 denominator)
+      0.0
+      (/ nominator denominator))))
