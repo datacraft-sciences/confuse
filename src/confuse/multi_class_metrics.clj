@@ -85,19 +85,24 @@
         predicted-k (fn [k] (sum (m/get-column cm k)))
 
         sum-mult-fns (fn [fn-1 fn-2] (sum (map
-                                           #(* (fn-1 %) (fn-2 %))
-                                           (range (first
-                                                   (m/shape cm))))))
+                                          #(* (fn-1 %) (fn-2 %))
+                                          (range (first
+                                                  (m/shape cm))))))
 
-
-        
         correct-samples (apply + (m/diagonal cm))
-        total-samples (m/esum cm)]
-    (/
-     (-
-      (* correct-samples total-samples)
-      (sum-mult-fns predicted-k true-k))
-     (Math/sqrt (* (- (* total-samples total-samples)
-                      (sum-mult-fns predicted-k predicted-k))
-                   (- (* total-samples total-samples)
-                      (sum-mult-fns true-k true-k)))))))
+        total-samples (m/esum cm)
+
+        nominator
+        (-
+         (* correct-samples total-samples)
+         (sum-mult-fns predicted-k true-k))
+
+        denominator
+        (Math/sqrt (* (- (* total-samples total-samples)
+                         (sum-mult-fns predicted-k predicted-k))
+                      (- (* total-samples total-samples)
+                         (sum-mult-fns true-k true-k))))]
+
+    (if (= 0.0 denominator)
+      0.0
+      (/ nominator denominator))))

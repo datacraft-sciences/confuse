@@ -7,6 +7,7 @@
    [clojure.core.matrix :as m]
    [clojure.core.matrix.stats :as ms]
    [clojure.core.matrix.dataset :as cd]
+   [clojure.core.matrix.stats :refer [mean sum]]
    ))
 
 (def fixt
@@ -81,4 +82,6 @@
   (is (approx 0.478
               (multiclass-mcc
                [1 1 1 1 1 1 1 1 0 0 0 0]
-               [0 0 1 1 1 1 1 1 0 0 0 1]))))
+               [0 0 1 1 1 1 1 1 0 0 0 1])))
+
+  (is (=  0.0 (multiclass-mcc [:a :b :c] [:a :a :a]))))
