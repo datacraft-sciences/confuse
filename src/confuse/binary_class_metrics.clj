@@ -142,12 +142,12 @@
         tn  (true-negatives actual predicted positive-class)
         fp  (false-positives actual predicted positive-class)
         fn_ (false-negatives actual predicted positive-class)
-        cov_x_y (- (* tp tn) (* fp fn_))
-        cov_x_x (Math/sqrt (* (+ tp fp) (+ tp fn_) (+ tn fp ) (+ tn fn_)))
+        cov-x-y (- (* tp tn) (* fp fn_))
+        cov-x-x (Math/sqrt (* (+ tp fp) (+ tp fn_) (+ tn fp ) (+ tn fn_)))
         ]
-    (if (=  cov_x_x 0.0)
+    (if (=  cov-x-x 0.0)
       0.0
-      (/ cov_x_y cov_x_x))))
+      (/ cov-x-y cov-x-x))))
 
 
 (defn- conf-mat
