@@ -92,17 +92,17 @@
         correct-samples (apply + (m/diagonal cm))
         total-samples (m/esum cm)
 
-        nominator
+        cov-x-y
         (-
          (* correct-samples total-samples)
          (sum-mult-fns predicted-k true-k))
 
-        denominator
+        cov-x-x
         (Math/sqrt (* (- (* total-samples total-samples)
                          (sum-mult-fns predicted-k predicted-k))
                       (- (* total-samples total-samples)
                          (sum-mult-fns true-k true-k))))]
 
-    (if (= 0.0 denominator)
+    (if (= 0.0 cov-x-x)
       0.0
-      (/ nominator denominator))))
+      (/ cov-x-y cov-x-x))))

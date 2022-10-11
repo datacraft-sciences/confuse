@@ -58,3 +58,7 @@
     (is (= 10 (cm [0 1])))
     (is (= 180 (cm [1 0])))
     (is (= 20 (cm [1 1])))))
+
+(deftest mcc-test
+  (is (approx -0.33333 (mcc [+1 +1 +1 -1] [+1 -1 +1 +1] pclass)))
+  (is (= 0.0 (mcc [1 2 3 4] [1 1 1 1] pclass))))
