@@ -73,36 +73,40 @@
 (defn multiclass-mcc
   "returns multiclass Matthews correlation coefficient.
   https://en.wikipedia.org/wiki/Phi_coefficient"
-  [actual predicted]
-  (let [
-        cm
-        (->
-         (b/confusion-matrix actual predicted)
-         (b/confusion-matrix-str)
-         (m/select :all :rest))
+  ([actual predicted classes]
+   (let [
+         cm
+         (->
+          (b/confusion-matrix actual predicted classes)
+          (b/confusion-matrix-str)
+          (m/select :all :rest))
 
-        true-k (fn [k] (sum (m/get-row cm k)))
-        predicted-k (fn [k] (sum (m/get-column cm k)))
 
-        sum-mult-fns (fn [fn-1 fn-2] (sum (map
-                                          #(* (fn-1 %) (fn-2 %))
-                                          (range (first
-                                                  (m/shape cm))))))
+         true-k (fn [k] (sum (m/get-row cm k)))
 
-        correct-samples (apply + (m/diagonal cm))
-        total-samples (m/esum cm)
+         predicted-k (fn [k] (sum (m/get-column cm k)))
 
-        cov-x-y
-        (-
-         (* correct-samples total-samples)
-         (sum-mult-fns predicted-k true-k))
+         sum-mult-fns (fn [fn-1 fn-2] (sum (map
+                                           #(* (fn-1 %) (fn-2 %))
+                                           (range (first
+                                                   (m/shape cm))))))
 
-        cov-x-x
-        (Math/sqrt (* (- (* total-samples total-samples)
-                         (sum-mult-fns predicted-k predicted-k))
-                      (- (* total-samples total-samples)
-                         (sum-mult-fns true-k true-k))))]
+         correct-samples (apply + (m/diagonal cm))
+         total-samples (m/esum cm)
 
-    (if (= 0.0 cov-x-x)
-      0.0
-      (/ cov-x-y cov-x-x))))
+         cov-x-y
+         (-
+          (* correct-samples total-samples)
+          (sum-mult-fns predicted-k true-k))
+
+         cov-x-x
+         (Math/sqrt (* (- (* total-samples total-samples)
+                          (sum-mult-fns predicted-k predicted-k))
+                       (- (* total-samples total-samples)
+                          (sum-mult-fns true-k true-k))))]
+
+     (if (= 0.0 cov-x-x)
+       0.0
+       (/ cov-x-y cov-x-x))))
+  ([actual predicted]
+   (multiclass-mcc actual predicted (distinct (concat actual predicted)))))
